@@ -2,13 +2,14 @@ package initialize
 
 import (
 	"errors"
+	"take-out/global"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
-	"take-out/global"
-	"time"
 )
 
 var (
@@ -22,6 +23,11 @@ func InitDatabase(dsn string) *gorm.DB {
 	} else {
 		ormLogger = logger.Default
 	}
+
+	// mysql.config{}创建一个mysql结构体，然后使用mysql.New()函数把mysql结构体转换成dialector对象
+	// 为什么要转换成dialector对象？
+	// 因为想要用gorm.Open()函数把mysql结构体转换成gorm结构体，需要先用new函数转换成dialector对象
+	// gorm.open()函数的接口的第一个参数要求dialecter结构体，不认识未转换过的mysql结构体
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       dsn,   // DSN data source name
 		DefaultStringSize:         256,   // string 类型字段的默认长度
