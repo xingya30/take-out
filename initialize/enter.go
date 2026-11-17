@@ -27,3 +27,9 @@ func GlobalInit() *gin.Engine {
 	router := routerInit()
 	return router
 }
+
+// 好了，那我现在算是把enter.go文件看完了，做的全是初始化操作，把四个全局变量分别赋值成结构体，最后的router被复制成一个gin框架的默认路由，
+// 顺便还注册了admin/的各种post put get 请求时的对应函数，我说的对吗
+
+// enter.go 初始化配置、日志、MySQL 和 Redis，保存到四个全局变量；然后创建并配置 Gin 引擎，
+// 注册中间件和 /admin 下的各模块接口，最后返回引擎指针，供 main 启动服务。
